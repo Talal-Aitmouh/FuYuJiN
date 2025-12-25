@@ -15,7 +15,7 @@ app.use(express.json());
 
 
 app.use('/api/auth', require('./routes/authroute'));
-app.use('/api/categories', require('./routes/category.routes'));
+app.use('/api/categories', require('./routes/categoryroutes'));
 app.use('/api/products', require('./routes/Productroute'));
 
 

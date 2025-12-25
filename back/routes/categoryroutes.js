@@ -2,7 +2,7 @@ const express = require('express');
 const {
   createCategory,
   getCategories
-} = require('../controllers/category.controller');
+} = require('../controllers/categorycontroller');
 
 const router = express.Router();
 
