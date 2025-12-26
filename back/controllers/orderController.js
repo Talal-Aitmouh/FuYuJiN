@@ -9,7 +9,7 @@ exports.createOrder = async (req, res) => {
 
     let total = 0;
 
-    // 1️⃣ Check stock + calculate total
+    //  Check stock + calculate total
     for (let item of items) {
       const product = await Product.findById(item.product_id);
 
@@ -26,7 +26,7 @@ exports.createOrder = async (req, res) => {
       total += item.quantity * item.price;
     }
 
-    // 2️⃣ Create order
+    //  Create order
     const order = await Order.create({
       client_id: client_id || null,
       items,
@@ -40,14 +40,14 @@ exports.createOrder = async (req, res) => {
           : 'unpaid'
     });
 
-    // 3️⃣ Update stock
+    //  Update stock
     for (let item of items) {
       await Product.findByIdAndUpdate(item.product_id, {
         $inc: { stock: -item.quantity }
       });
     }
 
-    // 4️⃣ Create credit if needed
+    //  Create credit if needed
     if (order.status !== 'paid' && client_id) {
       await Credit.create({
         order_id: order._id,

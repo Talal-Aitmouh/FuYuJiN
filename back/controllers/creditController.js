@@ -33,14 +33,14 @@ exports.payCredit = async (req, res) => {
       return res.status(400).json({ message: 'Amount exceeds remaining credit' });
     }
 
-    // 1️⃣ Update credit
+    //  Update credit
     credit.remaining -= amount;
     if (credit.remaining === 0) {
       credit.status = 'closed';
     }
     await credit.save();
 
-    // 2️⃣ Update order paid
+    //  Update order paid
     const order = await Order.findById(credit.order_id);
     order.paid += amount;
     order.status = order.paid >= order.total ? 'paid' : 'partial';
